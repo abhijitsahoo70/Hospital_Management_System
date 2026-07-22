@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h2>Appointment Management</h2>
+
+    <form action="{{ url_for('appointments') }}" method="POST">
+
+        <input
+            type="text"
+            name="patient_name"
+            placeholder="Patient Name"
+            required>
+
+        <br><br>
+
+        <input
+            type="text"
+            name="doctor_name"
+            placeholder="Doctor Name"
+            required>
+
+        <br><br>
+
+        <input
+            type="date"
+            name="appointment_date"
+            required>
+
+        <br><br>
+
+        <input
+            type="time"
+            name="appointment_time"
+            required>
+
+        <br><br>
+
+        <button type="submit">
+            Book Appointment
+        </button>
+
+    </form>
+
+    <hr>
+    
+    <h2>Search Appointment</h2>
+    
+    <form method="GET" action="{{ url_for('appointments') }}">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by Patient or Doctor Name">
+
+        <button type="submit">
+            Search
+        </button>
+    </form>
+    
+    <br>
+    <hr>
+
+    <h2>Appointment List</h2>
+
+    {% if appointments %}
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for appointment in appointments %}
+
+        <tr>
+
+            <td>{{ appointment["id"] }}</td>
+            <td>{{ appointment["patient_name"] }}</td>
+            <td>{{ appointment["doctor_name"] }}</td>
+            <td>{{ appointment["appointment_date"] }}</td>
+            <td>{{ appointment["appointment_time"] }}</td>
+
+            <td>
+                <a href="{{ url_for('edit_appointment', id=appointment['id']) }}">
+                    ✏️ Edit
+                </a>
+
+                |
+
+                <a href="{{ url_for('delete_appointment', id=appointment['id']) }}"
+                   onclick="return confirm('Delete this appointment?');">
+                    🗑 Delete
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No appointments found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+</div>
+
+{% endblock %}

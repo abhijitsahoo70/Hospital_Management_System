@@ -1,0 +1,1 @@
+console.log("Hospital Management System Loaded Successfully");

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        {% include 'sidebar.html' %}
+
+        <div class="col-md-10">
+            <div class="p-4">
+
+                <h2>Admin Dashboard</h2>
+
+                <a href="{{ url_for('reports') }}">
+                    <button class="btn btn-secondary">📊 Reports</button>
+                </a>
+
+                <hr>
+
+                <div class="row">
+
+                    <!-- Total Doctors -->
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white shadow mb-3">
+                            <div class="card-body text-center">
+                                <h1>{{ total_doctors }}</h1>
+                                <h5>Total Doctors</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Patients -->
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white shadow mb-3">
+                            <div class="card-body text-center">
+                                <h1>{{ total_patients }}</h1>
+                                <h5>Total Patients</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Appointments -->
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white shadow mb-3">
+                            <div class="card-body text-center">
+                                <h1>{{ total_appointments }}</h1>
+                                <h5>Total Appointments</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Bills (Updated) -->
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white shadow mb-3">
+                            <div class="card-body text-center">
+                                <h1 class="text-white fw-bold">
+                                    {{ total_bills }}
+                               </h1>
+                               <h4 class="text-white">
+                                    Total Bills
+                               </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Recent Doctors Table -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        Recent Doctors
+                    </div>
+                    <table class="table table-bordered mb-0">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                        </tr>
+                        {% for doctor in recent_doctors %}
+                        <tr>
+                            <td>{{ doctor["id"] }}</td>
+                            <td>{{ doctor["name"] }}</td>
+                            <td>{{ doctor["specialization"] }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center">No doctors added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <!-- Recent Patients Table -->
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        Recent Patients
+                    </div>
+                    <table class="table table-bordered mb-0">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                        </tr>
+                        {% for patient in recent_patients %}
+                        <tr>
+                            <td>{{ patient["id"] }}</td>
+                            <td>{{ patient["name"] }}</td>
+                            <td>{{ patient["gender"] }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center">No patients added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

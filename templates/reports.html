@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+<h2>Hospital Reports</h2>
+
+<table border="1" cellpadding="10">
+
+<tr>
+<th>Total Patients</th>
+<td>{{ total_patients }}</td>
+</tr>
+
+<tr>
+<th>Total Doctors</th>
+<td>{{ total_doctors }}</td>
+</tr>
+
+<tr>
+<th>Total Appointments</th>
+<td>{{ total_appointments }}</td>
+</tr>
+
+<tr>
+<th>Total Bills</th>
+<td>{{ total_bills }}</td>
+</tr>
+
+</table>
+
+<br>
+
+<a href="{{ url_for('dashboard') }}">
+<button>Back to Dashboard</button>
+</a>
+
+</div>
+
+{% endblock %}

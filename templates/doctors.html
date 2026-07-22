@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h2>Doctor Management</h2>
+
+    <form action="{{ url_for('doctors') }}" method="POST">
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Doctor Name"
+            required>
+
+        <br><br>
+
+        <input
+            type="text"
+            name="specialization"
+            placeholder="Specialization"
+            required>
+
+        <br><br>
+
+        <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            required>
+
+        <br><br>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required>
+
+        <br><br>
+
+        <button type="submit">
+            Save Doctor
+        </button>
+
+    </form>
+
+    <hr>
+    
+    <h2>Search Doctor</h2>
+    
+    <form method="GET" action="{{ url_for('doctors') }}">
+        <input
+            type="text"
+            name="search"
+            placeholder="Enter Doctor Name">
+
+        <button type="submit">
+            Search
+        </button>
+    </form>
+    
+    <br>
+    <hr>
+
+    <h2>Doctor List</h2>
+
+    {% if doctors %}
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for doctor in doctors %}
+
+        <tr>
+
+            <td>{{ doctor["id"] }}</td>
+            <td>{{ doctor["name"] }}</td>
+            <td>{{ doctor["specialization"] }}</td>
+            <td>{{ doctor["phone"] }}</td>
+            <td>{{ doctor["email"] }}</td>
+
+            <td>
+                <a href="{{ url_for('edit_doctor', id=doctor['id']) }}">
+                    ✏️ Edit
+                </a>
+
+                |
+
+                <a href="{{ url_for('delete_doctor', id=doctor['id']) }}"
+                   onclick="return confirm('Delete this doctor?');">
+                    🗑 Delete
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No doctors available.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        <button>Back to Dashboard</button>
+    </a>
+
+</div>
+
+{% endblock %}

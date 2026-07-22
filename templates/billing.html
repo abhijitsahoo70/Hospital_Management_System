@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+<h2>Billing Management</h2>
+
+<form action="{{ url_for('billing') }}" method="POST">
+
+    <input
+        type="text"
+        name="patient_name"
+        placeholder="Patient Name"
+        required>
+
+    <br><br>
+
+    <input
+        type="text"
+        name="treatment"
+        placeholder="Treatment"
+        required>
+
+    <br><br>
+
+    <input
+        type="number"
+        name="amount"
+        placeholder="Amount"
+        step="0.01"
+        required>
+
+    <br><br>
+
+    <select name="payment_status">
+
+        <option value="Paid">Paid</option>
+
+        <option value="Pending">Pending</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Generate Bill
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Bill List</h2>
+
+{% if bills %}
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+<tr>
+
+<th>ID</th>
+<th>Patient</th>
+<th>Treatment</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+{% for bill in bills %}
+
+<tr>
+
+<td>{{ bill["id"] }}</td>
+<td>{{ bill["patient_name"] }}</td>
+<td>{{ bill["treatment"] }}</td>
+<td>₹ {{ bill["amount"] }}</td>
+<td>{{ bill["payment_status"] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No bills found.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('dashboard') }}">
+<button>Back to Dashboard</button>
+</a>
+
+</div>
+
+{% endblock %}
